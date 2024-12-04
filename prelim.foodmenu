@@ -1,0 +1,150 @@
+print("--------------------------------------")
+print("\tBienvenidos a sa hungry")
+print("--------------------------------------\n")
+
+# Menu items organized by type
+
+menus = {
+    1: ["Hotdog w/ Egg", "Corned Beef w/ Potato", "Sopas"],  # Breakfast
+    2: ["Porkchop", "Salmon", "Lasagna"],                    # Lunch
+    3: ["Grilled Chicken Salad", "Spaghetti Carbonara", "Pares"]  # Dinner
+}
+
+opt = ""
+while True:
+    opt = input("Do you want to see the menu? y/n: ").lower()
+    if opt not in ["y", "n"]:
+        print("\n-----Invalid input. Please enter 'y' or 'n'.-----")
+    else:
+        break
+
+while opt == "y":
+    # Prompt user for menu selection
+    menu_1 = 0
+    while True:
+        menu_1 = input("\nMENU \n\t1. Breakfast\n\t2. Lunch\n\t3. Dinner\n\nI want to order: ")
+        if menu_1.isdigit() and 1 <= int(menu_1) <= 3:
+            menu_1 = int(menu_1)
+            break
+        else:
+            print("\n-----Invalid menu selection. Please enter 1, 2, or 3.-----")
+
+    if menu_1 == 1:  # Breakfast Menu
+        print("\nBreakfast Menu:")
+        for i, item in enumerate(menus[1], start=1):
+            print(f"\t{i}. {item}")
+
+        order_option = 0
+        while True:
+            order_option = input("Please select an option: ")
+            if order_option.isdigit() and 1 <= int(order_option) <= len(menus[1]):
+                print(f"\n-----You ordered: {menus[1][int(order_option) - 1]}-----")
+                break
+            else:
+                print("\n-----Invalid option. Please enter a number between 1 and", len(menus[1]), ".-----")
+
+    elif menu_1 == 2:  # Lunch Menu
+        print("\nLunch Menu:")
+        for i, item in enumerate(menus[2], start=1):
+            print(f"\t{i}. {item}")
+
+        order_option = 0
+        while True:
+            order_option = input("Please select an option: ")
+            if order_option.isdigit() and 1 <= int(order_option) <= len(menus[2]):
+                print(f"\n-----You ordered: {menus[2][int(order_option) - 1]}-----")
+                break
+            else:
+                print("\n-----Invalid option. Please enter a number between 1 and", len(menus[2]), ".-----")
+
+    elif menu_1 == 3:  # Dinner Menu
+        print("\nDinner Menu:")
+        for i, item in enumerate(menus[3], start=1):
+            print(f"\t{i}. {item}")
+
+        order_option = 0
+        while True:
+            order_option = input("Please select an option: ")
+            if order_option.isdigit() and 1 <= int(order_option) <= len(menus[3]):
+                print(f"\n-----You ordered: {menus[3][int(order_option) - 1]}-----")
+                break
+            else:
+                print("\n-----Invalid option. Please enter a number between 1 and", len(menus[3]), ".-----")
+
+    opt = ""
+    while True:
+        opt = input("\nDo you want to order again? (y/n): ").lower()
+        if opt not in ["y", "n"]:
+            print("\n-----Invalid input. Please enter 'y' or 'n'.-----")
+        else:
+            break
+
+# Start of the loop for managing the menu options
+while True:
+    manage_opt = input("\nWould you like to manage the menu? (add, delete, edit, search, display, or exit): ").lower()
+    if manage_opt not in ["add", "delete", "edit", "search", "display", "exit"]:
+        print("\n-----Invalid action. Please enter 'add', 'delete', 'edit', 'search', 'display', or 'exit'.-----")
+    else:
+        if manage_opt == "exit":  # Exit condition
+            print("\nExiting menu management.")
+            break  # Exit the loop
+
+        # Adding a new item
+        if manage_opt == "add":
+            menu_type = int(input("\nAdd to which menu? (1: Breakfast, 2: Lunch, 3: Dinner): "))
+            new_item = input("\nEnter new menu item: ")
+            menus[menu_type].append(new_item)
+            print(f"\n{new_item} added to the menu.")
+
+        # Deleting an item
+        elif manage_opt == "delete":
+            menu_type = int(input("\nDelete from which menu? (1: Breakfast, 2: Lunch, 3: Dinner): "))
+            print("\nCurrent items:")
+            for i, item in enumerate(menus[menu_type]):
+                print(f"{i + 1}. {item}")
+
+            index = int(input("\nSelect item number to delete: ")) - 1
+            if 0 <= index < len(menus[menu_type]):
+                removed_item = menus[menu_type].pop(index)
+                print(f"\n{removed_item} deleted from the menu.")
+            else:
+                print("\n-----Invalid item number-----")
+
+        # Editing an item
+        elif manage_opt == "edit":
+            menu_type = int(input("\nEdit which menu? (1: Breakfast, 2: Lunch, 3: Dinner): "))
+            print("\nCurrent items:")
+            for i, item in enumerate(menus[menu_type]):
+                print(f"{i + 1}. {item}")
+
+            index = int(input("\nSelect item number to edit: ")) - 1
+            if 0 <= index < len(menus[menu_type]):
+                new_name = input("\nEnter new name for the item: ")
+                menus[menu_type][index] = new_name
+                print(f"\nItem updated to {new_name}.")
+            else:
+                print("\n-----Invalid item number-----")
+
+        # Searching for an item
+        elif manage_opt == "search":
+            search_term = input("\nEnter item to search for: ")
+            found = False
+            for menu in menus.values():
+                for item in menu:
+                    if search_term.lower() in item.lower():
+                        print(f"\nFound: {item}")
+                        found = True
+            if not found:
+                print("\n-----Item not found-----")
+
+        # Displaying all items
+        elif manage_opt == "display":
+            for menu_type, items in menus.items():
+                print(f"\nMenu {menu_type}:")
+                for i, item in enumerate(items):
+                    print(f"{i + 1}. {item}")
+
+        else:
+            print("-----Invalid action-----")  # Handle invalid input
+
+    print("\n-----Thank you for visiting us! Have a great day!-----")
