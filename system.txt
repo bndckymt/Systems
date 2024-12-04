@@ -1,0 +1,116 @@
+GROUP MEMBERS:
+JUNE GARCIA
+ALEXIS BALMORES
+RHYZA SERATO
+
+
+
+
+
+categories = {
+    "Hoodies & Sweatshirts": {
+        "Crewnecks": {"description": "Comfortable crewneck sweatshirts, perfect for all seasons.", "price": 115.50},
+        "Zip-ups": {"description": "Stylish zip-up hoodies for casual wear.", "price": 200.00},
+        "Pullover Hoodies": {"description": "Cozy pullover hoodies available in various colors.", "price": 201.99},
+        "Fleece Sweatshirts": {"description": "Warm fleece sweatshirts for cold weather.", "price": 205.75}
+    },
+    "Hats": {
+        "Baseball Caps": {"description": "Classic baseball caps in different colors and designs.", "price": 100.75},
+        "Beanies": {"description": "Warm beanies for winter.", "price": 120.50},
+        "Bucket Hats": {"description": "Trendy bucket hats for a casual look.", "price": 99.99},
+        "Fedoras": {"description": "Elegant fedoras for a stylish outfit.", "price": 299.99},
+        "Straw Hats": {"description": "Lightweight straw hats perfect for summer.", "price": 150.00}
+    },
+    "Bags & Backpacks": {
+        "Tote Bags": {"description": "Durable tote bags for everyday use.", "price": 100.00},
+        "Backpacks": {"description": "Spacious backpacks for work or school.", "price": 200.50},
+        "Messenger Bags": {"description": "Comfortable messenger bags for a modern look.", "price": 275.50},
+        "Fanny Packs": {"description": "Compact fanny packs for on-the-go convenience.", "price": 160.75},
+        "Wallets": {"description": "Stylish wallets to keep your essentials organized.", "price": 80.25}
+    },
+    "Jewelry": {
+        "Necklaces": {"description": "Beautiful necklaces for any occasion.", "price": 50.00},
+        "Bracelets": {"description": "Chic bracelets to match your style.", "price": 40.00},
+        "Earrings": {"description": "Elegant earrings in various designs.", "price": 30.00},
+        "Rings": {"description": "Rings for a touch of elegance.", "price": 35.00},
+        "Keychains": {"description": "Unique keychains to personalize your belongings.", "price": 15.00}
+    },
+    "Home & Living": {
+        "Mugs": {"description": "Ceramic mugs for your favorite hot beverages.", "price": 20.50},
+        "Coffee Cups": {"description": "Insulated coffee cups for on-the-go drinking.", "price": 25.75},
+        "Cutting Boards": {"description": "High-quality cutting boards for kitchen use.", "price": 35.50},
+        "Kitchen Towels": {"description": "Absorbent kitchen towels in various patterns.", "price": 15.25},
+        "Aprons": {"description": "Aprons to keep you clean while cooking.", "price": 30.00}
+    }
+}
+
+def display_merchandise():
+    """Display all available merchandise with descriptions and prices."""
+    print("\nWelcome to Smart Self-Service Retail!")
+    print("Available Merchandise:\n")
+
+    for category, items in categories.items():
+        print(f"Items: {category}")
+        for item, details in items.items():
+            print(f"  - {item}: {details['description']} (P{details['price']:.2f})")
+        print()
+
+def purchase_item():
+    """Allow the customer to purchase an item with quantity and total cost."""
+    print("Enter the category and item you wish to purchase:")
+
+    category_list = list(categories.keys())
+    for i, category in enumerate(category_list, 1):
+        print(i, category)
+
+    category_choice = int(input("Select a category (number): ")) - 1
+    if category_choice < 0 or category_choice >= len(category_list):
+        print("Invalid category. Please try again.")
+        return
+
+    selected_category = category_list[category_choice]
+    item_list = list(categories[selected_category].keys())
+
+    for i, item in enumerate(item_list, 1):
+        details = categories[selected_category][item]
+        print(f"{i}. {item} - {details['description']} (P{details['price']:.2f})")
+
+    item_choice = int(input("Select an item to purchase (number): ")) - 1
+    if item_choice < 0 or item_choice >= len(item_list):
+        print("Invalid item. Please try again.")
+        return
+
+    selected_item = item_list[item_choice]
+    item_price = categories[selected_category][selected_item]['price']
+
+    quantity = int(input(f"How many {selected_item}(s) would you like to purchase? "))
+    if quantity <= 0:
+        print("Invalid quantity. Please try again.")
+        return
+
+    total_cost = item_price * quantity
+
+    print(f"\nThank you for purchasing {quantity} {selected_item}(s) from the {selected_category} category!")
+    print(f"Total cost: P{total_cost:.2f}")
+    print("Your order is being processed...\n")
+
+def main():
+    while True:
+        print("\n1. View Merchandise")
+        print("2. Purchase an Item")
+        print("3. Exit")
+
+        choice = input("\nEnter your choice (1-3): ")
+
+        if choice == '1':
+            display_merchandise()
+        elif choice == '2':
+            purchase_item()
+        elif choice == '3':
+            print("\nThank you for visiting Smart Self-Service Retail! Goodbye!\n")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
