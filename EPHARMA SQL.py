@@ -1,3 +1,7 @@
+#Wendy Ortega
+#Janelle Gattoc
+#Khate Cassandra Pailognaa
+
 import sqlite3
 
 class PharmacySystem:
