@@ -1,7 +1,3 @@
-import introduction
-import system
+import output
 
-introduction.intro()
-introduction.proceed()
-
-system.main()
+output.main()
